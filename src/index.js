@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import './index.css';
 
 const pizzaData = [
   {
@@ -48,33 +49,56 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className='container'>
       <Header />
       <Menu />
-      <Footer />
+      <Footer author="Nick Neessen"/>
     </div>
   );
 }
 
 function Header() {
-  return <h1>Fast React Pizza Co.</h1>;
+  return (
+    <header className='header'>
+        <h1>Fast React Pizza Co.</h1>
+    </header>
+  );
 }
 
 function Menu() {
   return (
-    <div>
+    <main className='menu'>
       <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </div>
+      <Pizza 
+        name='Pizza Spinaci' 
+        ingredients='Tomato, mozarella, spinach, and ricotta cheese' 
+        photoName='pizzas/spinaci.jpg' 
+        price={10}
+      />
+      <Pizza 
+        name="Pizza Funghi"
+        ingredients="tomato, mushrooms"
+        price={12}
+        photoName='pizzas/funghi.jpg'
+      />
+    </main>
   );
-}
+};
 
-function Footer() {
+function Pizza(props) {
+    return (
+      <div className="pizza">
+        <img src={props.photoName} alt={props.name} />
+        <div>
+            <h3>{props.name}</h3>
+            <p>{props.ingredients}</p>
+            <span>{props.price}</span>
+        </div>
+      </div>
+    );
+  };
+
+function Footer(props) {
   const hour = new Date().getHours();
   const openHour = 12;
   const closeHour = 22;
@@ -84,19 +108,14 @@ function Footer() {
   // else alert("Sorry we are close");
 
   return (
-    <footer>{new Date().toLocaleTimeString()}. We're currently open</footer>
+    <footer className='footer'>
+        <p>Created by {props.author}</p>
+        {new Date().toLocaleTimeString()}. We're currently open
+    </footer>
   );
-}
+};
 
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Pizza spinaci" />
-      <h2>Pizza Spinaci!</h2>
-      <p>Tomato, mozarella, spinach, and ricotta chees</p>
-    </div>
-  );
-}
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
