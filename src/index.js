@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import './index.css';
+import "./index.css";
 
 const pizzaData = [
   {
@@ -49,50 +49,54 @@ const pizzaData = [
 
 function App() {
   return (
-    <div className='container'>
+    <div className="container">
       <Header />
       <Menu />
-      <Footer author="Nick Neessen"/>
+      <Footer author="Nick Neessen" />
     </div>
   );
 }
 
 function Header() {
   return (
-    <header className='header'>
-        <h1>Fast React Pizza Co.</h1>
+    <header className="header">
+      <h1>Fast React Pizza Co.</h1>
     </header>
   );
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  const numPizzas = pizzas.length;
   return (
-    <main className='menu'>
+    <main className="menu">
       <h2>Our Menu</h2>
 
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name}/>
-        ))}
-      </ul>
+      {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )}
     </main>
   );
-};
+}
 
 function Pizza(props) {
-    return (
-      <li className="pizza">
-        <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
-        <div>
-            <h3>{props.pizzaObj.name}</h3>
-            <p>{props.pizzaObj.ingredients}</p>
-            <span>{props.pizzaObj.price}</span>
-        </div>
-      </li>
-    );
-  };
+  return (
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name} />
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
+      </div>
+    </li>
+  );
+}
 
-function Footer(props) {
+function Footer() {
   const hour = new Date().getHours();
   const openHour = 12;
   const closeHour = 22;
@@ -102,14 +106,16 @@ function Footer(props) {
   // else alert("Sorry we are close");
 
   return (
-    <footer className='footer'>
-        <p>Created by {props.author}</p>
-        {new Date().toLocaleTimeString()}. We're currently open
+    <footer className="footer">
+      {isOpen && (
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online!</p>
+          <button className="btn">Order</button>
+        </div>
+      )}
     </footer>
   );
-};
-
-
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
