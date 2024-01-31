@@ -47,6 +47,7 @@ const pizzaData = [
   },
 ];
 
+
 function App() {
   return (
     <div className="container">
@@ -57,6 +58,7 @@ function App() {
   );
 }
 
+
 function Header() {
   return (
     <header className="header">
@@ -65,14 +67,13 @@ function Header() {
   );
 }
 
+
 function Menu() {
   const pizzas = pizzaData;
   const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-
-
       {numPizzas > 0 ? (
         <>
           <p>
@@ -90,21 +91,20 @@ function Menu() {
   );
 }
 
+
 function Pizza({ pizzaObj }) {
-
-  if(pizzaObj.soldOut) return null;
-
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObj.soldOut ? 'sold-out' : ''}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? 'SOLD OUT' : pizzaObj.price}</span>
       </div>
     </li>
   );
 }
+
 
 function Footer() {
   const hour = new Date().getHours();
@@ -121,6 +121,7 @@ function Footer() {
   );
 }
 
+
 function Order({ closeHour, openHour }) {
   return (
     <div className="order">
@@ -129,6 +130,7 @@ function Order({ closeHour, openHour }) {
     </div>
     );
 }
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
